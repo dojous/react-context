@@ -36,7 +36,8 @@ class Movies extends Component {
             genre: "",
             stock: "",
             rate: ""
-        }
+        },
+        invalid: false
     }
 
 
@@ -53,13 +54,16 @@ class Movies extends Component {
         console.log(id)
         deleteMovie(id)
 
-        this.setState({ tableList: getMovies(), numbers: this.state.numbers - 1 })
+        this.setState({ tableList: getMovies(), function(prevState, props){ return {numbers: prevState.numbers -1}
+    } })
 
 
 
     }
 
     handleAdd = () => {
+      
+      
         if (formValid(this.state)) {
             let movieObj = {
 
@@ -70,26 +74,34 @@ class Movies extends Component {
 
             }
             console.log(movieObj)
-            const xx = addMovie(movieObj)
-
-            this.setState({ tableList: xx, numbers: this.state.numbers + 1, title: null, genre: null, stock: null, rate: null })
+            // let formErrors = { ...this.state.formErrors };
+            
+             let xx = addMovie(movieObj)
+           
+             this.setState({ tableList: xx, function(prevState, props){ return {numbers: prevState.numbers +1}
+             },invalid: false})
+           
         } else {
-            alert('Form invalid')
+            this.setState({invalid: true})
+            console.log('Form invalid')
         }
 
-
+       
     }
 
     handleChange = e => {
-        e.preventDefault();
+         e.preventDefault();
         const { name, value } = e.target;
 
         let formErrors = { ...this.state.formErrors };
+      
+
         console.log(name)
         switch (name) {
             case "title":
                 formErrors.title =
-                    value.length < 3 ? "minimum 3 characaters required" : "";
+                    value.length < 3 ? "minimum 3 characaters required" :  "";
+                 
                 break;
             case "genre":
                 formErrors.genre =
@@ -104,6 +116,7 @@ class Movies extends Component {
                     value.length < 1 ? "minimum 1 characaters required" : "";
                 break;
             default:
+           
                 break;
         }
         this.setState({ formErrors, [name]: value })
@@ -132,7 +145,7 @@ class Movies extends Component {
                                         <div className="container" >
 
 
-                                            <div class="row">
+                                            <div className="row">
                                                 <div className="col-sm-9 col-md-6 col-lg-8" >
 
                                                     {this.state.numbers === 0 ? <h1>{language.labels.error}</h1> :
@@ -174,16 +187,17 @@ class Movies extends Component {
 
                                                 <div className="col-sm-3 col-md-6 col-lg-4" >
                                                     <div className="fixed" style={{ border: theme.config.formBorder, backgroundColor: theme.config.backGroundForm }}>
-                                                        <form>
+                                                    {this.state.invalid && <span style={{color:'red'}}>{language.labels.formValid}</span> }
+                                                        <form >
                                                             <div className="form-group">
-                                                                <label for="title">{language.labels.title}</label>
-                                                                <input type="text" name='title' className="form-control" id="title" aria-describedby="title" placeholder={language.labels.title} onChange={this.handleChange} />
+                                                                <label htmlFor="title">{language.labels.title}</label>
+                                                                <input type="text" name='title' className="form-control" id="title"  placeholder={language.labels.title} onChange={this.handleChange} />
                                                                 {formErrors.title.length > 0 && (
                                                                     <span className="errorMessage">{formErrors.title}</span>
                                                                 )}
                                                             </div>
                                                             <div className="form-group">
-                                                                <label for="genre">Genre</label>
+                                                                <label htmlFor="genre">Genre</label>
                                                                 <input type="text" name='genre' className="form-control" id="genre" placeholder="Genre" onChange={this.handleChange} />
                                                                 {formErrors.genre.length > 0 && (
                                                                     <span className="errorMessage">{formErrors.genre}</span>
@@ -192,7 +206,7 @@ class Movies extends Component {
 
 
                                                             <div className="form-group">
-                                                                <label for="stock">Stock</label>
+                                                                <label htmlFor="stock">Stock</label>
                                                                 <input type="text" name='stock' className="form-control" id="stock" placeholder="Stock" onChange={this.handleChange} />
                                                                 {formErrors.stock.length > 0 && (
                                                                     <span className="errorMessage">{formErrors.stock}</span>
@@ -200,7 +214,7 @@ class Movies extends Component {
                                                             </div>
 
                                                             <div className="form-group">
-                                                                <label for="rate">Rate</label>
+                                                                <label htmlFor="rate">Rate</label>
                                                                 <input type="text" name='rate' className="form-control" id="rate" placeholder="Rate" onChange={this.handleChange} />
                                                                 {formErrors.rate.length > 0 && (
                                                                     <span className="errorMessage">{formErrors.rate}</span>
@@ -208,9 +222,16 @@ class Movies extends Component {
                                                             </div>
 
                                                             <ButtonAdd onHandleAdd={this.handleAdd} />
-                                                            {/* <button type="submit" className="btn btn-primary">Submit</button> */}
+                                                            {/* <button type="submit" className="btn btn-primary">Add record</button> */}
                                                         </form>
+                                                              
+                                                       
+                                                        {this.state.numbers === 0 ? <span>{language.labels.error}</span> :
+                                                        <span>{language.labels.body.replace('&{number}', movies.length)}</span>
+
+                                                    }
                                                     </div>
+                                                    
                                                 </div>
 
 
