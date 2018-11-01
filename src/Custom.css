@@ -126,3 +126,8 @@
     /* width: 71% */
 }
 
+.errorMessage {
+  color: red;
+  font-size: 0.75em;
+  display: relative;
+}
