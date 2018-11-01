@@ -8,6 +8,7 @@
     justify-content: center;
     font-size: calc(10px + 2vmin);
     padding: 10px; 
+    
    
   }
 
@@ -105,3 +106,23 @@
       text-align: center;
     }
   }
+
+  div.fixed {
+    position: -webkit-sticky;
+    position: fixed;
+    top: 40;
+    padding: 50px;
+    /* background-color: brown;
+    border: 2px solid black; */
+  }
+
+  .fixed {
+    position: fixed;
+    /* width: 25%; */
+   
+}
+.scrollit {
+    float: left;
+    /* width: 71% */
+}
+

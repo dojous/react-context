@@ -6,13 +6,18 @@ export const themeConfig = {
         headerBg: '#F7B30C',
         fontColor: 'black',
         bodybg: 'white',
-        logo: lightLogo
+        logo: lightLogo,
+        formBorder: '2px solid black',
+        backGroundForm: 'white'
     },
     dark: {
         headerBg: '#3c3c3c',
         fontColor: 'white',
         bodybg: 'black',
-        logo: darkLogo
+        logo: darkLogo,
+        formBorder: '2px solid white',
+        backGroundForm: 'brown'
+        
     }
 };
 const ThemeContext = React.createContext(themeConfig.light);

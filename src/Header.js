@@ -18,7 +18,7 @@ export default class Header extends Component {
                       {language.labels.langSelectLabel}
                       <select value={language.name} onChange={(event) => this.props.toggleLanguage(event.currentTarget.value)}>
                         <option value="en">English</option>
-                        <option value="gr">Germnan</option>
+                        <option value="gr">German</option>
                         <option value="fr">French</option>
                         <option value="sp">Spanish</option>
                         <option value="hn">Hindi</option>
