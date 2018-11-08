@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 
 import './Custom.css'
 import "bootstrap/dist/css/bootstrap.css";
+import "font-awesome/css/font-awesome.css";
 
 import Movies from './components/movies'
 import Header from './Header';
@@ -10,7 +11,7 @@ import ThemeContext from './context/ThemeContext';
 import LangContext from './context/LangContext';
 import {labels} from './context/LangContext';
 import {themeConfig} from './context/ThemeContext';
-
+import NavBar from './components/navBar'
 class App extends Component {
 
   constructor() {
@@ -19,8 +20,7 @@ class App extends Component {
       language: 'en',
       theme: 'light'
     }
-    // this.toggleLanguage = this.toggleLanguage.bind(this);
-    // this.toggleTheme = this.toggleTheme.bind(this);
+    
   }
   toggleLanguage=(newLang) => {
     this.setState({
@@ -45,6 +45,8 @@ class App extends Component {
         <LangContext.Provider value={{name: this.state.language, labels: labels[this.state.language]}}>
             <Header toggleLanguage={this.toggleLanguage} toggleTheme={this.toggleTheme}/>
            
+         <NavBar/>
+
         <Movies />
         
         </LangContext.Provider>
